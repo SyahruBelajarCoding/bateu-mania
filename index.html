@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Merch Bateu Mania: kaos, jaket, ganci, dan stiker. Pilih satuan atau paket, lalu pesan lewat Google Form.">
+<meta name="theme-color" content="#0f0b09">
+<meta property="og:title" content="Bateu Mania Merch">
+<meta property="og:description" content="Kaos, jaket, ganci, dan stiker Bateu Mania. Mulai 40K.">
+<meta property="og:image" content="assets/poster-paket-3.webp">
+<link rel="icon" href="assets/logo-128.png">
+<title>Bateu Mania Merch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Graduate&display=swap">
+<style>
+/* Layout: "tribun" — a supporter banner hero, a chant ribbon, then merch hung on a dark pegboard like the posters */
+:root{
+  --ink:#0f0b09;        /* page ground, warm black of the logo */
+  --ink-2:#1b1411;      /* raised surface */
+  --ink-3:#261c17;
+  --line:#3b2c22;
+  --paper:#f6ede2;      /* cream text */
+  --muted:#bba796;
+  --orange:#ee6a12;     /* brand orange */
+  --orange-hi:#ff8a3d;
+  --maroon:#6e1a17;     /* PRICE tag on the posters */
+  --gold:#d6a63c;       /* logo outline */
+  --peg:rgba(246,237,226,.045);
+  --dim:#5e4a3c;        /* empty cells in the paket table */
+  --on-orange:#140c07;
+  --board:#f2f2f0;      /* pegboard white from the posters */
+  --f-display:"Anton","Impact","Arial Narrow Bold",sans-serif;
+  --f-varsity:"Graduate","Rockwell","Georgia",serif;
+  --f-body:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  --wrap:1180px;
+  --gutter:clamp(16px,4vw,40px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--ink);color:var(--paper);font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;letter-spacing:.01em;line-height:.95;margin:0;text-wrap:balance;text-transform:uppercase}
+p{margin:0}
+.eyebrow{font-family:var(--f-varsity);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font-family:var(--f-body);font-weight:700;font-size:16px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:14px 22px;border-radius:4px;border:2px solid transparent;cursor:pointer;transition:transform .15s ease,background-color .15s ease,border-color .15s ease}
+.btn-primary{background:var(--orange);color:var(--on-orange);border-color:var(--orange)}
+.btn-primary:hover{background:var(--orange-hi);border-color:var(--orange-hi);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--paper);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(15,11,9,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand img{width:40px;height:auto}
+.brand span{font-family:var(--f-varsity);font-size:18px;letter-spacing:.04em}
+.nav-links{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav-links a{text-decoration:none;font-weight:600;font-size:15px;color:var(--muted)}
+.nav-links a:hover{color:var(--paper)}
+.nav .btn{padding:10px 16px;font-size:14px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:clamp(24px,5vw,64px);padding-block:clamp(40px,7vw,88px)}
+.hero-copy{min-width:0;display:flex;flex-direction:column;gap:22px}
+.hero h1{font-size:clamp(54px,9.2vw,124px);line-height:.9}
+.hero h1 .hot{color:var(--orange);display:block}
+.hero-lede{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:34em}
+.hero-lede strong{color:var(--paper);font-weight:600}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--muted)}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts li::before{content:"";width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.facts b{color:var(--paper);font-weight:700}
+.crest{position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:100%}
+.burst{position:absolute;inset:-8%;border-radius:50%;background:repeating-conic-gradient(from 0deg,var(--orange) 0deg 5deg,transparent 5deg 15deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 68%);mask:radial-gradient(circle,#000 18%,transparent 68%);opacity:.32;animation:spin 80s linear infinite}
+.crest img{position:relative;width:88%;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* chant ribbon */
+.ribbon-wrap{overflow:hidden;padding-block:30px 40px}
+.ribbon{background:var(--orange);color:var(--on-orange);transform:rotate(-1.6deg);margin-inline:-24px;overflow:hidden;border-block:3px solid var(--on-orange);box-shadow:0 10px 0 var(--maroon)}
+.ribbon-track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.ribbon span{font-family:var(--f-display);font-size:clamp(22px,3vw,34px);text-transform:uppercase;letter-spacing:.02em;padding:10px 0;white-space:nowrap;display:flex;align-items:center}
+.ribbon span::after{content:"";width:12px;height:12px;background:var(--on-orange);transform:rotate(45deg);margin-inline:28px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* sections */
+.section{padding-block:clamp(56px,8vw,104px)}
+.section-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:clamp(28px,4vw,44px)}
+.section-head > div{display:flex;flex-direction:column;gap:12px;min-width:0}
+.section-head h2{font-size:clamp(42px,6vw,76px)}
+.section-head p{color:var(--muted);max-width:38em}
+.pegboard{background-color:var(--ink);background-image:linear-gradient(var(--peg) 2px,transparent 2px),linear-gradient(90deg,var(--peg) 2px,transparent 2px);background-size:34px 34px;background-position:-1px -1px}
+
+.group-label{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-family:var(--f-varsity);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.group-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.group + .group{margin-top:clamp(40px,6vw,64px)}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.card{position:relative;display:flex;flex-direction:column;background:var(--ink-2);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:border-color .2s ease,transform .2s ease}
+.card:hover{border-color:var(--orange);transform:translateY(-3px)}
+.shot{all:unset;position:relative;display:block;cursor:zoom-in;background:var(--ink-3);aspect-ratio:894/709;max-width:100%}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.zoom{position:absolute;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(15,11,9,.82);color:var(--paper);font-size:13px;font-weight:600;padding:6px 10px;border-radius:3px}
+.zoom svg{width:14px;height:14px}
+.badge{position:absolute;left:12px;top:12px;background:var(--gold);color:var(--on-orange);font-family:var(--f-varsity);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px}
+.card-body{display:flex;flex-direction:column;gap:14px;padding:clamp(18px,2.4vw,26px);flex:1}
+.card h3{font-size:clamp(32px,3.6vw,42px)}
+.card .desc{color:var(--muted);font-size:16px;min-height:3.1em}
+.contents{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.contents li{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--line);border-radius:3px;color:var(--paper);background:var(--ink-3)}
+.buy{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:auto;padding-top:16px;border-top:1px dashed var(--line)}
+.price{display:flex;align-items:center;gap:10px}
+.price-tag{background:var(--maroon);color:var(--paper);font-family:var(--f-body);font-weight:700;font-size:14px;letter-spacing:.06em;padding:5px 8px}
+.price-num{font-family:var(--f-display);font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.price-idr{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+
+/* comparison */
+.compare{margin-top:clamp(40px,6vw,64px);background:var(--ink-2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.compare-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;padding:20px clamp(18px,2.4vw,26px);border-bottom:1px solid var(--line)}
+.compare-head h3{font-size:28px}
+.compare-head p{color:var(--muted);font-size:15px}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:560px;font-variant-numeric:tabular-nums}
+th,td{padding:14px clamp(14px,2vw,22px);text-align:center;border-bottom:1px solid var(--line)}
+tr:last-child td,tr:last-child th{border-bottom:0}
+thead th{font-family:var(--f-varsity);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:400}
+tbody th{text-align:left;font-family:var(--f-display);font-weight:400;font-size:22px;text-transform:uppercase}
+th:first-child{text-align:left}
+.yes{color:var(--orange);font-weight:700}
+.no{color:var(--dim)}
+td.total{font-family:var(--f-display);font-size:22px;text-align:right}
+thead th:last-child{text-align:right}
+.yes svg{width:20px;height:20px;vertical-align:middle}
+
+/* item details */
+.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.detail{display:flex;flex-direction:column;gap:18px;padding:clamp(18px,2.4vw,26px);background:var(--ink-2);border:1px solid var(--line);border-radius:6px;min-width:0}
+.detail h3{font-size:34px}
+.detail-media{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.detail-media img{width:100%;border-radius:4px;background:var(--paper);aspect-ratio:1;object-fit:cover}
+.detail-media.stack{grid-template-columns:1fr}
+.detail-media.stack img{aspect-ratio:auto}
+.detail-media.side img{aspect-ratio:1;object-fit:contain;background:var(--board)}
+.detail p{color:var(--muted)}
+.specs{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.specs li{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.specs li:last-child{border-bottom:0}
+.specs span:first-child{color:var(--muted)}
+.specs span:last-child{text-align:right;font-weight:600}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,28px);counter-reset:step}
+.steps li{counter-increment:step;display:flex;flex-direction:column;gap:10px;padding-top:18px;border-top:3px solid var(--orange)}
+.steps li::before{content:counter(step,decimal-leading-zero);font-family:var(--f-varsity);font-size:42px;line-height:1;color:var(--gold)}
+.steps h3{font-size:28px}
+.steps p{color:var(--muted)}
+
+/* final CTA */
+.final{background:var(--orange);color:var(--on-orange);position:relative;overflow:hidden}
+.final .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(20px,4vw,48px);padding-block:clamp(44px,6vw,72px)}
+.final img{width:clamp(110px,14vw,170px)}
+.final h2{font-size:clamp(40px,6vw,80px)}
+.final p{font-weight:600;margin-top:10px;max-width:32em}
+.final .btn{background:var(--on-orange);color:var(--paper);border-color:var(--on-orange);padding:18px 26px;font-size:17px}
+.final .btn:hover{background:var(--maroon);border-color:var(--maroon)}
+.final > .wrap > div{min-width:0}
+
+footer{border-top:1px solid var(--line);padding-block:32px}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;color:var(--muted);font-size:14px}
+footer .brand span{color:var(--paper)}
+.tag{font-family:var(--f-varsity);color:var(--gold);letter-spacing:.06em}
+
+/* mobile order bar */
+.mbar{display:none}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(8,6,5,.92);display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 56px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
+.lightbox img{max-height:100%;max-width:min(100%,620px);width:auto;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.6);object-fit:contain}
+.lb-close{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:16px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--ink-2);color:var(--paper);font-size:24px;line-height:1;cursor:pointer}
+.lb-close:hover{border-color:var(--gold)}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .crest{order:-1;width:min(300px,72%);margin-inline:auto}
+  .nav-links{display:none}
+  .final .wrap{grid-template-columns:1fr;text-align:left}
+  .final img{width:110px}
+}
+@media (max-width:760px){
+  .grid,.details{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .card .desc{min-height:0}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:12px;align-items:center;justify-content:space-between;padding:10px 16px calc(env(safe-area-inset-bottom,0px) + 10px);background:rgba(15,11,9,.94);border-top:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .mbar p{font-size:14px;color:var(--muted);line-height:1.3}
+  .mbar p b{display:block;color:var(--paper);font-size:15px}
+  .mbar .btn{padding:12px 16px;font-size:14px;flex:none}
+  footer{padding-bottom:110px}
+  .nav .btn{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Bateu Mania, ke atas">
+      <img src="assets/logo-128.png" alt="" width="40" height="42">
+      <span>BATEU MANIA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#katalog">Katalog</a></li>
+      <li><a href="#detail">Detail Item</a></li>
+      <li><a href="#cara-pesan">Cara Pesan</a></li>
+    </ul>
+    <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Sekarang</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Barisan Aneuk Teknik · Universitas Syiah Kuala</p>
+        <h1>Kalau lawan teknik <span class="hot">jangan nangis.</span></h1>
+        <p class="hero-lede">Merch resmi <strong>Bateu Mania</strong>: kaos, jaket, ganci, dan stiker. Beli satuan atau ambil paketnya, lalu isi form pemesanan.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">
+            Isi Form Pemesanan
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#katalog">Lihat Katalog</a>
+        </div>
+        <ul class="facts">
+          <li><b>6</b>&nbsp;pilihan merch</li>
+          <li>Mulai&nbsp;<b>40K</b></li>
+          <li>Pesan lewat Google Form</li>
+        </ul>
+      </div>
+      <div class="crest">
+        <div class="burst" aria-hidden="true"></div>
+        <img src="assets/logo.webp" alt="Logo Bateu Mania: ayam jago memegang megafon, memakai kaos hitam bertuliskan Aneuk Teknik" width="720" height="758">
+      </div>
+    </div>
+  </section>
+
+  <div class="ribbon-wrap" aria-hidden="true"><div class="ribbon">
+    <div class="ribbon-track">
+      <span>Aku Aneuk Teknik</span><span>#TeknikSatu</span><span>Bateu Mania</span><span>Kalau lawan teknik jangan nangis</span>
+      <span>Aku Aneuk Teknik</span><span>#TeknikSatu</span><span>Bateu Mania</span><span>Kalau lawan teknik jangan nangis</span>
+    </div>
+  </div></div>
+
+  <section class="section pegboard" id="katalog">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Katalog</p>
+          <h2>Pilih merch kamu</h2>
+        </div>
+        <p>Klik gambar untuk melihat poster lengkapnya. Semua tombol pesan membuka Google Form yang sama, jadi tulis nama item atau paket yang kamu pilih di form.</p>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Satuan</h3>
+        <div class="grid">
+          <article class="card">
+            <button class="shot" type="button" data-poster="assets/poster-kaos.webp" aria-label="Lihat poster Kaos">
+              <img src="assets/kaos.webp" alt="Kaos hitam Bateu Mania, tampak depan dan belakang" width="894" height="709" loading="lazy">
+              <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Lihat poster</span>
+            </button>
+            <div class="card-body">
+              <h3>Kaos</h3>
+              <p class="desc">Kaos hitam. Lettering Bateu Mania di depan, ilustrasi penuh di belakang.</p>
+              <ul class="contents" aria-label="Isi"><li>Kaos</li></ul>
+              <div class="buy">
+                <div><div class="price"><span class="price-tag">PRICE</span><span class="price-num">110K</span></div><span class="price-idr">Rp110.000</span></div>
+                <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Kaos</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <button class="shot" type="button" data-poster="assets/poster-jaket.webp" aria-label="Lihat poster Jaket">
+              <img src="assets/jaket.webp" alt="Jaket oranye Bateu Mania, tampak depan dan belakang" width="894" height="709" loading="lazy">
+              <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Lihat poster</span>
+            </button>
+            <div class="card-body">
+              <h3>Jaket</h3>
+              <p class="desc">Jaket oranye. Logo di dada, FT dan 04 di lengan, Barisan Aneuk Teknik di punggung.</p>
+              <ul class="contents" aria-label="Isi"><li>Jaket</li></ul>
+              <div class="buy">
+                <div><div class="price"><span class="price-tag">PRICE</span><span class="price-num">220K</span></div><span class="price-idr">Rp220.000</span></div>
+                <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Jaket</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Paket</h3>
+        <div class="grid">
+          <article class="card">
+            <button class="shot" type="button" data-poster="assets/poster-paket-1.webp" aria-label="Lihat poster Paket 1">
+              <img src="assets/paket-1.webp" alt="Paket 1: kaos, ganci, dan stiker Bateu Mania" width="894" height="709" loading="lazy">
+              <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Lihat poster</span>
+            </button>
+            <div class="card-body">
+              <h3>Paket 1</h3>
+              <p class="desc">Kaos Bateu Mania, ditambah ganci dan stiker.</p>
+              <ul class="contents" aria-label="Isi"><li>Kaos</li><li>Ganci</li><li>Stiker</li></ul>
+              <div class="buy">
+                <div><div class="price"><span class="price-tag">PRICE</span><span class="price-num">150K</span></div><span class="price-idr">Rp150.000</span></div>
+                <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Paket 1</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <button class="shot" type="button" data-poster="assets/poster-paket-2.webp" aria-label="Lihat poster Paket 2">
+              <img src="assets/paket-2.webp" alt="Paket 2: jaket, ganci, dan stiker Bateu Mania" width="894" height="709" loading="lazy">
+              <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Lihat poster</span>
+            </button>
+            <div class="card-body">
+              <h3>Paket 2</h3>
+              <p class="desc">Jaket Bateu Mania, ditambah ganci dan stiker.</p>
+              <ul class="contents" aria-label="Isi"><li>Jaket</li><li>Ganci</li><li>Stiker</li></ul>
+              <div class="buy">
+                <div><div class="price"><span class="price-tag">PRICE</span><span class="price-num">275K</span></div><span class="price-idr">Rp275.000</span></div>
+                <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Paket 2</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <button class="shot" type="button" data-poster="assets/poster-paket-3.webp" aria-label="Lihat poster Paket 3">
+              <img src="assets/paket-3.webp" alt="Paket 3: jaket, kaos, ganci, dan stiker Bateu Mania" width="894" height="709" loading="lazy">
+              <span class="badge">Paling lengkap</span>
+              <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Lihat poster</span>
+            </button>
+            <div class="card-body">
+              <h3>Paket 3</h3>
+              <p class="desc">Semua item sekaligus: jaket, kaos, ganci, dan stiker.</p>
+              <ul class="contents" aria-label="Isi"><li>Jaket</li><li>Kaos</li><li>Ganci</li><li>Stiker</li></ul>
+              <div class="buy">
+                <div><div class="price"><span class="price-tag">PRICE</span><span class="price-num">325K</span></div><span class="price-idr">Rp325.000</span></div>
+                <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Paket 3</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <button class="shot" type="button" data-poster="assets/poster-paket-4.webp" aria-label="Lihat poster Paket 4">
+              <img src="assets/paket-4.webp" alt="Paket 4: ganci dan stiker Bateu Mania" width="894" height="709" loading="lazy">
+              <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Lihat poster</span>
+            </button>
+            <div class="card-body">
+              <h3>Paket 4</h3>
+              <p class="desc">Ganci webbing dan stiker 6 desain. Pilihan paling hemat.</p>
+              <ul class="contents" aria-label="Isi"><li>Ganci</li><li>Stiker</li></ul>
+              <div class="buy">
+                <div><div class="price"><span class="price-tag">PRICE</span><span class="price-num">40K</span></div><span class="price-idr">Rp40.000</span></div>
+                <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Paket 4</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="compare-head">
+          <h3>Bandingkan isi paket</h3>
+          <p>Cek isi tiap paket sebelum mengisi form.</p>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Paket</th><th scope="col">Kaos</th><th scope="col">Jaket</th><th scope="col">Ganci</th><th scope="col">Stiker</th><th scope="col">Harga</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Paket 1</th><td class="yes">✓</td><td class="no">–</td><td class="yes">✓</td><td class="yes">✓</td><td class="total">150K</td></tr>
+              <tr><th scope="row">Paket 2</th><td class="no">–</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="total">275K</td></tr>
+              <tr><th scope="row">Paket 3</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="total">325K</td></tr>
+              <tr><th scope="row">Paket 4</th><td class="no">–</td><td class="no">–</td><td class="yes">✓</td><td class="yes">✓</td><td class="total">40K</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="detail">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Detail Item</p>
+          <h2>Kenali tiap item</h2>
+        </div>
+        <p>Isi paket diambil dari item yang sama. Ini detail tiap item sesuai desain di poster.</p>
+      </div>
+
+      <div class="details">
+        <article class="detail">
+          <h3>Kaos</h3>
+          <div class="detail-media">
+            <img src="assets/d-kaos-depan.webp" alt="Kaos tampak depan dengan lettering Bateu Mania" width="378" height="377" loading="lazy">
+            <img src="assets/d-kaos-belakang.webp" alt="Kaos tampak belakang dengan ilustrasi suporter Bateu Mania" width="378" height="377" loading="lazy">
+          </div>
+          <ul class="specs">
+            <li><span>Warna</span><span>Hitam</span></li>
+            <li><span>Depan</span><span>Lettering Bateu Mania</span></li>
+            <li><span>Belakang</span><span>Ilustrasi penuh Bateu Mania</span></li>
+          </ul>
+          <p>Desain depan simpel untuk dipakai harian, desain belakang ilustrasi suporter penuh untuk dipakai di tribun.</p>
+        </article>
+
+        <article class="detail">
+          <h3>Jaket</h3>
+          <div class="detail-media stack">
+            <img src="assets/d-jaket.webp" alt="Jaket oranye tampak depan dan belakang" width="805" height="335" loading="lazy">
+            <img src="assets/d-jaket-patch.webp" alt="Detail logo, tulisan FT dan 04 di lengan, dan tulisan punggung" width="865" height="230" loading="lazy">
+          </div>
+          <ul class="specs">
+            <li><span>Warna</span><span>Oranye</span></li>
+            <li><span>Dada</span><span>Logo Bateu Mania</span></li>
+            <li><span>Lengan</span><span>FT dan 04</span></li>
+            <li><span>Punggung</span><span>Barisan Aneuk Teknik, Universitas Syiah Kuala</span></li>
+          </ul>
+        </article>
+
+        <article class="detail">
+          <h3>Ganci</h3>
+          <div class="detail-media side">
+            <img src="assets/d-ganci.webp" alt="Ganci webbing oranye bertuliskan Bateu Mania dan Aneuk Teknik" width="320" height="328" loading="lazy">
+            <div>
+              <ul class="specs">
+                <li><span>Ukuran</span><span>13,5 × 3,5 cm</span></li>
+                <li><span>Depan</span><span>Bateu Mania</span></li>
+                <li><span>Belakang</span><span>Aneuk Teknik</span></li>
+              </ul>
+            </div>
+          </div>
+          <p>Material webbing tebal dan tahan lama, ring besi stainless, jahitan rapi dan kuat, sablon detail dan presisi.</p>
+        </article>
+
+        <article class="detail">
+          <h3>Stiker</h3>
+          <div class="detail-media side">
+            <img src="assets/d-stiker.webp" alt="Lembar stiker Bateu Mania berisi enam desain" width="356" height="500" loading="lazy">
+            <div>
+              <ul class="specs">
+                <li><span>Jumlah desain</span><span>6</span></li>
+                <li><span>Termasuk di</span><span>Paket 1–4</span></li>
+              </ul>
+            </div>
+          </div>
+          <p>Logo Bateu Mania, ilustrasi suporter, lettering Bateu Mania, “Kalau Lawan Teknik Jangan Nangis”, “Aku Aneuk Teknik”, dan “#Teknik Satu”.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pegboard" id="cara-pesan">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Cara Pesan</p>
+          <h2>Tiga langkah</h2>
+        </div>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Pilih item</h3>
+          <p>Tentukan mau beli satuan (Kaos atau Jaket) atau salah satu dari Paket 1 sampai 4.</p>
+        </li>
+        <li>
+          <h3>Isi Google Form</h3>
+          <p>Buka form pemesanan, lalu isi data diri dan pesananmu dengan lengkap.</p>
+        </li>
+        <li>
+          <h3>Tunggu konfirmasi</h3>
+          <p>Admin Bateu Mania akan menghubungi kamu lewat kontak yang kamu isi di form.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <img src="assets/logo.webp" alt="" width="720" height="758" loading="lazy">
+      <div>
+        <h2>Aku aneuk teknik.</h2>
+        <p>Tunjukkan di tribun, di kampus, dan di mana saja. Pesan merch Bateu Mania sekarang.</p>
+      </div>
+      <a class="btn" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">
+        Isi Form Pemesanan
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Bateu Mania, ke atas">
+      <img src="assets/logo-128.png" alt="" width="40" height="42">
+      <span>BATEU MANIA</span>
+    </a>
+    <span class="tag">#TeknikSatu</span>
+    <span>© <span id="yr">2026</span> Bateu Mania · Barisan Aneuk Teknik</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <p><b>Mulai 40K</b>Kaos, jaket, ganci, stiker</p>
+  <a class="btn btn-primary" href="https://forms.gle/h2Co1AUK5pVNuR8u8" target="_blank" rel="noopener">Pesan Sekarang</a>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Poster produk" hidden>
+  <button class="lb-close" type="button" id="lb-close" aria-label="Tutup poster">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'),img=document.getElementById('lb-img'),closeBtn=document.getElementById('lb-close'),last=null;
+  function open(btn){
+    last=btn;
+    img.src=btn.getAttribute('data-poster');
+    img.alt=btn.getAttribute('aria-label').replace('Lihat ','');
+    lb.hidden=false;document.body.style.overflow='hidden';closeBtn.focus();
+  }
+  function close(){
+    lb.hidden=true;document.body.style.overflow='';img.removeAttribute('src');
+    if(last)last.focus();
+  }
+  document.querySelectorAll('.shot').forEach(function(b){b.addEventListener('click',function(){open(b)})});
+  closeBtn.addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lb.hidden)close()});
+  var y=document.getElementById('yr');if(y)y.textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
